@@ -1,8 +1,4 @@
-﻿using CesarBmx.Notification.Application.Validators;
-using CesarBmx.Shared.Api.Configuration;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using CesarBmx.Shared.Api.Configuration;
 
 namespace CesarBmx.Notification.Api.Configuration
 {
@@ -10,14 +6,14 @@ namespace CesarBmx.Notification.Api.Configuration
     {
         public static IServiceCollection ConfigureMvc(this IServiceCollection services, IConfiguration configuration)
         {
-            services.ConfigureSharedMvc(configuration, true);
+            services.ConfigureSharedMvc(configuration, false);
             
             return services;
         }
 
         public static IApplicationBuilder ConfigureMvc(this IApplicationBuilder app, IConfiguration configuration)
         {
-            app.ConfigureSharedMvc(configuration, true);
+            app.ConfigureSharedMvc(configuration, false);
 
             return app;
         }

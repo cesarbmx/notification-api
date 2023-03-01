@@ -30,21 +30,12 @@ namespace CesarBmx.Notification.Api.Configuration
             }
 
             // Services
-            services.AddScoped<CurrencyService>();
-            services.AddScoped<WatcherService>();
-            services.AddScoped<UserService>();
-            services.AddScoped<NotificationService>();
-            services.AddScoped<OrderService>();
-            services.AddScoped<IndicatorService>();
-            services.AddScoped<LineService>();
-            services.AddScoped<ChartService>();
-            services.AddScoped<ScriptVariablesService>();
+            services.AddScoped<MessageService>();
 
             // Jobs
             services.AddScoped<MainJob>();
             services.AddScoped<SendWhatsappNotificationsJob>();
             services.AddScoped<SendTelgramNotificationsJob>();
-            services.AddScoped<RemoveObsoleteLinesJob>();
 
             // API clients
             services.AddScoped<CoinpaprikaAPI.Client, CoinpaprikaAPI.Client>();

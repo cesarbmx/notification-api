@@ -9,16 +9,16 @@ namespace CesarBmx.Notification.Application.Jobs
 {
     public class SendTelgramNotificationsJob
     {
-        private readonly NotificationService _notificationService;
+        private readonly MessageService _messageService;
         private readonly ILogger<SendWhatsappNotificationsJob> _logger;
         private readonly ActivitySource _activitySource;
 
         public SendTelgramNotificationsJob(
-            NotificationService notificationService,
+            MessageService messageService,
             ILogger<SendWhatsappNotificationsJob> logger,
             ActivitySource activitySource)
         {
-            _notificationService = notificationService;
+            _messageService = messageService;
             _logger = logger;
             _activitySource = activitySource;
         }
@@ -29,10 +29,10 @@ namespace CesarBmx.Notification.Application.Jobs
             try
             {
                 // Start span
-                using var span = _activitySource.StartActivity(nameof(RemoveObsoleteLinesJob));
+                using var span = _activitySource.StartActivity(nameof(SendTelgramNotificationsJob));
 
                 // Send telegram notifications
-                await _notificationService.SendTelegramNotifications();
+                await _messageService.SendTelegramMessages();
             }
             catch (Exception ex)
             {

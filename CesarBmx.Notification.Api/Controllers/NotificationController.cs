@@ -16,41 +16,41 @@ namespace CesarBmx.Notification.Api.Controllers
     [SwaggerOrder(orderPrefix: "G")]
     public class NotificationController : Controller
     {
-        private readonly NotificationService _notificationService;
+        private readonly MessageService _messageService;
 
-        public NotificationController(NotificationService notificationService)
+        public NotificationController(MessageService messageService)
         {
-            _notificationService = notificationService;
+            _messageService = messageService;
         }
 
         /// <summary>
-        /// Get user notifications
+        /// Get messages
         /// </summary>
         [HttpGet]
-        [Route("api/users/{userId}/notifications")]
-        [SwaggerResponse(200, Type = typeof(List<Notification>))]
-        [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetUserNotifications")]
-        public async Task<IActionResult> GetUserNotifications(string userId)
+        [Route("api/messages")]
+        [SwaggerResponse(200, Type = typeof(List<Message>))]
+        [SwaggerOperation(Tags = new[] { "Messages" }, OperationId = "Messages_GetMessages")]
+        public async Task<IActionResult> GetMessages(string userId)
         {
             // Reponse
-            var response = await _notificationService.GetUserNotifications(userId);
+            var response = await _messageService.GetMessages(userId);
 
             // Return
             return Ok(response);
         }
 
         /// <summary>
-        /// Get notification
+        /// Get message
         /// </summary>
         [HttpGet]
-        [Route("api/notifications/{notificationId}", Name = "Notifications_GetNotification")]
-        [SwaggerResponse(200, Type = typeof(Notification))]
+        [Route("api/messages/{messageId}", Name = "Messages_GetMessage")]
+        [SwaggerResponse(200, Type = typeof(Message))]
         [SwaggerResponse(404, Type = typeof(NotFound))]
-        [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_GetNotification")]
-        public async Task<IActionResult> GetNotification(Guid notificationId)
+        [SwaggerOperation(Tags = new[] { "Messages" }, OperationId = "Messages_GetMessage")]
+        public async Task<IActionResult> GetMessage(Guid messageId)
         {
             // Reponse
-            var response = await _notificationService.GetNotification(notificationId);
+            var response = await _messageService.GetMessage(messageId);
 
             // Return
             return Ok(response);

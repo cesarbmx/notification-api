@@ -33,15 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Mappers\TemplateMapping.tt">
-      <LastGenOutput>TemplateMapping.txt</LastGenOutput>
-      <Generator>TextTemplatingFileGenerator</Generator>
-    </None>
-    <None Update="Mappers\TemplateMapping.txt">
-      <DependentUpon>TemplateMapping.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </None>
     <None Update="Messages\TemplateMessage.tt">
       <LastGenOutput>TemplateMessage.txt</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -50,15 +41,6 @@
       <DependentUpon>TemplateMessage.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-    </None>
-    <None Update="Responses\TemplateMessage.tt">
-      <LastGenOutput>TemplateMessage.txt</LastGenOutput>
-      <Generator>TextTemplatingFileGenerator</Generator>
-    </None>
-    <None Update="Responses\TemplateMessage.txt">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>TemplateMessage.tt</DependentUpon>
     </None>
     <None Update="Services\TemplateExpression.tt">
       <LastGenOutput>TemplateExpression.txt</LastGenOutput>
@@ -69,6 +51,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>TemplateExpression.tt</DependentUpon>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Conflicts\" />
+    <Folder Include="FakeRequests\" />
+    <Folder Include="Requests\" />
+    <Folder Include="Validators\" />
   </ItemGroup>
 
 </Project>

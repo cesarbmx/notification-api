@@ -8,7 +8,7 @@ namespace CesarBmx.Notification.Api.Configuration
     {
         public static IServiceCollection ConfigureAutomapper(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(CurrencyMapper).Assembly);
+            services.AddAutoMapper(typeof(MessageMapper).Assembly);
 
             return services;
         }

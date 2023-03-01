@@ -101,7 +101,7 @@ services:
           - SA_PASSWORD=A&VeryComplex123Password
 
     CesarBmx.Notification.Api:
-        container_name: crypto-watcher-api
+        container_name: notification-api
         image: ${DOCKER_REGISTRY-}cesarbmx/notification-api
         build:
           context: .

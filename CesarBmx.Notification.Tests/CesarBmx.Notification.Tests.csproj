@@ -17,4 +17,9 @@
     <ProjectReference Include="..\CesarBmx.Notification.Domain\CesarBmx.Notification.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\" />
+    <Folder Include="Domain\" />
+  </ItemGroup>
+
 </Project>
