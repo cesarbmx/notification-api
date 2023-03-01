@@ -102,7 +102,7 @@ services:
 
     CesarBmx.Notification.Api:
         container_name: crypto-watcher-api
-        image: ${DOCKER_REGISTRY-}cesarbmx/crypto-watcher-api
+        image: ${DOCKER_REGISTRY-}cesarbmx/notification-api
         build:
           context: .
           dockerfile: CesarBmx.Notification.Api/Dockerfile
