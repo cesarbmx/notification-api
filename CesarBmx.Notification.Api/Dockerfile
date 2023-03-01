@@ -7,7 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["CesarBmx.Notification.Api2/CesarBmx.Notification.Api.csproj", "CesarBmx.Notification.Api/"]
+COPY ["CesarBmx.Notification.Api/CesarBmx.Notification.Api.csproj", "CesarBmx.Notification.Api/"]
 RUN dotnet restore "CesarBmx.Notification.Api/CesarBmx.Notification.Api.csproj"
 COPY . .
 WORKDIR "/src/CesarBmx.Notification.Api"
