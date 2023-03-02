@@ -109,8 +109,8 @@ services:
         networks:
             - elastic
         ports:
-            - "65014:80"
-            - "65015:443"
+            - "65003:80"
+            - "65004:443"
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - JAEGER_SERVICE_NAME=NotificationApi
