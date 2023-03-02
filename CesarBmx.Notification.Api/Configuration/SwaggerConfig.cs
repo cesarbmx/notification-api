@@ -17,7 +17,7 @@ namespace CesarBmx.Notification.Api.Configuration
 
         public static IApplicationBuilder ConfigureSwagger(this IApplicationBuilder app, IConfiguration config)
         {
-            app.ConfigureSharedSwagger("Notification API","api");
+            app.ConfigureSharedSwagger("Notification API");
 
             return app;
         }
