@@ -16,7 +16,7 @@ namespace CesarBmx.Notification.Application.Consumers
 
         public Task Consume(ConsumeContext<SendMessage> context)
         {
-            _logger.LogInformation("Send message");
+            _logger.LogInformation("Send message " + context.Message.Text);
 
             return Task.CompletedTask;
         }
