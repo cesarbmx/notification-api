@@ -32,7 +32,7 @@ namespace CesarBmx.Notification.Application.Jobs
                 using var span = _activitySource.StartActivity(nameof(SendWhatsappNotificationsJob));
 
                 // Send whatsapp notifications
-                await _notificationService.SendWhatsappNotifications();
+                await _notificationService.SendWhatsappMessages();
             }
             catch (Exception ex)
             {

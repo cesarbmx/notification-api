@@ -15,6 +15,7 @@ using Telegram.Bot;
 using Twilio;
 using Twilio.Types;
 using Twilio.Rest.Api.V2010.Account;
+using CesarBmx.Shared.Messaging.Notification.Commands;
 
 namespace CesarBmx.Notification.Application.Services
 {
@@ -125,14 +126,14 @@ namespace CesarBmx.Notification.Application.Services
             // Log
             _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@FailedCount}, {@ExecutionTime}", "TelegramNotificationsSent", Guid.NewGuid(), count, failedCount, stopwatch.Elapsed.TotalSeconds);
         }
-        public async Task SendWhatsappNotifications()
+        public async Task SendWhatsappMessages()
         {
             // Start watch
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
             // Start span
-            using var span = _activitySource.StartActivity(nameof(SendWhatsappNotifications));
+            using var span = _activitySource.StartActivity(nameof(SendWhatsappMessages));
 
             // Get pending messages
             var pendingMessages = await _mainDbContext.Messages.Where(NotificationExpression.PendingNotification()).ToListAsync();
