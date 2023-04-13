@@ -34,10 +34,6 @@ namespace CesarBmx.Notification.Persistence.Mappings
 
             entityBuilder.Property(t => t.SentTime)
                 .HasColumnType("datetime2");
-
-            entityBuilder.Property(t => t.Time)
-                .HasColumnType("datetime2")
-                .IsRequired();
         }
     }
 }
