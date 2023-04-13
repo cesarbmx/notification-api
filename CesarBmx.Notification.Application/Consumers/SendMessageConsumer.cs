@@ -41,10 +41,6 @@ namespace CesarBmx.Notification.Application.Consumers
 
         public async Task Consume(ConsumeContext<SendMessage> context)
         {
-            _logger.LogInformation("Send message " + context.Message.Text);
-
-            return Task.CompletedTask;
-
             try
             {
                 // Start watch
