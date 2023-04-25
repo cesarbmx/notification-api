@@ -11,6 +11,7 @@ using CesarBmx.Notification.Domain.Builders;
 using CesarBmx.Notification.Domain.Models;
 using CesarBmx.Notification.Application.Messages;
 using CesarBmx.Notification.Application.Services;
+using CesarBmx.Shared.Messaging.Ordering.Events;
 
 namespace CesarBmx.Notification.Application.Consumers
 {
@@ -53,7 +54,6 @@ namespace CesarBmx.Notification.Application.Consumers
                 // Command
                 var sendMessage = context.Message;
 
-
                 // Create message
                 var message = new Message(sendMessage.MessageId, sendMessage.UserId, sendMessage.PhoneNumber, sendMessage.Text);
 
@@ -65,6 +65,9 @@ namespace CesarBmx.Notification.Application.Consumers
 
                 // Publish event
                 await _publishEndpoint.Publish(messageSent);
+
+                // Response
+                await context.RespondAsync(messageSent);
 
                 // Stop watch
                 stopwatch.Stop();

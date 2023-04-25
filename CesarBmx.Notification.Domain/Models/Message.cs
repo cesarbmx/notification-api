@@ -12,8 +12,8 @@ namespace CesarBmx.Notification.Domain.Models
         public string UserId { get; set; } = null!;
         public string PhoneNumber { get; private set; }
         public string Text { get; private set; }     
-        public DateTime? SentTime { get; private set; }
-        public NotificationStatus NotificationStatus => NotificationBuilder.BuildNotificationStatus(SentTime);
+        public DateTime? SentAt { get; private set; }
+        public NotificationStatus NotificationStatus => NotificationBuilder.BuildNotificationStatus(SentAt);
 
         public Message() { }
         public Message(Guid guid, string userId, string phoneNumber, string text)
@@ -21,12 +21,12 @@ namespace CesarBmx.Notification.Domain.Models
             MessageId = guid;
             PhoneNumber = phoneNumber;
             Text = text;
-            SentTime = null;
+            SentAt = null;
         }
 
         public void MarkAsSent()
         {
-            SentTime = DateTime.UtcNow.StripSeconds();
+            SentAt = DateTime.UtcNow.StripSeconds();
         }
     }
 }

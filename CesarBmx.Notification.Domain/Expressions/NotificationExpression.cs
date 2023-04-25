@@ -12,7 +12,7 @@ namespace CesarBmx.Notification.Domain.Expressions
         }
         public static Expression<Func<Message, bool>> PendingNotification()
         {
-            return x => !x.SentTime.HasValue;
+            return x => !x.SentAt.HasValue;
         }
     }
 }

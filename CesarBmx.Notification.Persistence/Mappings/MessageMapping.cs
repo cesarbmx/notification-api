@@ -32,7 +32,7 @@ namespace CesarBmx.Notification.Persistence.Mappings
                 .HasMaxLength(200)
                 .IsRequired();
 
-            entityBuilder.Property(t => t.SentTime)
+            entityBuilder.Property(t => t.SentAt)
                 .HasColumnType("datetime2");
         }
     }
