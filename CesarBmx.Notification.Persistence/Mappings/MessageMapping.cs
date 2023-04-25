@@ -14,8 +14,7 @@ namespace CesarBmx.Notification.Persistence.Mappings
             // Properties
             entityBuilder.Property(t => t.MessageId)
                 .HasColumnType("uniqueidentifier")
-                .IsRequired()
-                .ValueGeneratedOnAdd();
+                .IsRequired();
 
             entityBuilder.Property(t => t.UserId)
                 .HasColumnType("nvarchar(50)")
