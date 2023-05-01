@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using CesarBmx.Notification.Domain.Models;
 using CesarBmx.Notification.Persistence.Mappings;
+using CesarBmx.Shared.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace CesarBmx.Notification.Persistence.Contexts
@@ -20,6 +21,8 @@ namespace CesarBmx.Notification.Persistence.Contexts
             modelBuilder.Entity<Message>().Map();
 
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.UseMasstransit();
         }
     }
 }
