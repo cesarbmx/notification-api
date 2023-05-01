@@ -17,6 +17,7 @@ using Twilio.Types;
 using Twilio.Rest.Api.V2010.Account;
 using CesarBmx.Shared.Messaging.Notification.Commands;
 using CesarBmx.Notification.Domain.Models;
+using CesarBmx.Shared.Messaging.Notification.Events;
 
 namespace CesarBmx.Notification.Application.Services
 {
@@ -97,9 +98,19 @@ namespace CesarBmx.Notification.Application.Services
             foreach (var message in messages)
             {
                 try
-                {
+                {                  
+
                     // Send telegram
-                    await SendTelegramMessage(message);                    
+                    await bot.SendTextMessageAsync("@crypto_watcher_official", message.Text);
+
+                    // Mark notification as sent
+                    message.MarkAsSent();
+
+                    // Update notification
+                    _mainDbContext.Messages.Update(message);
+
+                    // Save
+                    await _mainDbContext.SaveChangesAsync();
 
                     // Count
                     count++;
@@ -117,24 +128,6 @@ namespace CesarBmx.Notification.Application.Services
 
             // Log
             _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@FailedCount}, {@ExecutionTime}", "TelegramNotificationsSent", Guid.NewGuid(), count, failedCount, stopwatch.Elapsed.TotalSeconds);
-        }
-        public async Task SendTelegramMessage(Message message)
-        {
-            // Connect
-            var apiToken = _appSettings.TelegramApiToken;
-            var bot = new TelegramBotClient(apiToken);
-
-            // Send telegram
-            await bot.SendTextMessageAsync("@crypto_watcher_official", message.Text);
-
-            // Mark notification as sent
-            message.MarkAsSent();
-
-            // Update notification
-            _mainDbContext.Messages.Update(message);
-
-            // Save
-            await _mainDbContext.SaveChangesAsync();
         }
         public async Task SendWhatsappMessages()
         {
