@@ -65,23 +65,23 @@ namespace CesarBmx.Notification.Application.Consumers
                 // Update notification
                 _mainDbContext.Messages.Update(message);
 
-                // Event
-                var messageSent = _mapper.Map<MessageSent>(message);
-
-                // Publish event
-                await context.Publish(messageSent);
-
                 // Save
                 await _mainDbContext.SaveChangesAsync();
-
-                // Response
-                await context.RespondAsync(messageSent);
 
                 // Stop watch
                 stopwatch.Stop();
 
                 // Log
                 _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", nameof(MessageSent), Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
+
+                // Response
+                await context.RespondAsync(message);
+
+                // Event
+                var messageSent = _mapper.Map<MessageSent>(message);
+
+                // Publish event
+                await context.Publish(messageSent);
             }
             catch (Exception ex)
             {
