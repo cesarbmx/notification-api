@@ -50,7 +50,7 @@ namespace CesarBmx.Notification.Application.Consumers
                 var sendMessage = context.Message;
 
                 // Create message
-                var message = new Message(sendMessage.MessageId, sendMessage.UserId, "TODO: Look it up in notification", sendMessage.Text);
+                var message = _mapper.Map<Message>(sendMessage);
 
                 // Connect
                 var apiToken = _appSettings.TelegramApiToken;

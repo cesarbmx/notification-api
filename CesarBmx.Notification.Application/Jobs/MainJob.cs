@@ -37,7 +37,7 @@ namespace CesarBmx.Notification.Application.Jobs
                 using var span = _activitySource.StartActivity(nameof(MainJob));
 
                 // Main job
-                await _messageService.SendTelegramMessages();
+                //await _messageService.SendTelegramMessages();
 
                 // Stop watch
                 stopwatch.Stop();
