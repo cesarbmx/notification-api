@@ -10,6 +10,7 @@ using CesarBmx.Notification.Domain.Models;
 using Telegram.Bot;
 using CesarBmx.Notification.Application.Settings;
 using AutoMapper;
+using CesarBmx.Shared.Messaging.Ordering.Events;
 
 namespace CesarBmx.Notification.Application.Consumers
 {
@@ -74,14 +75,14 @@ namespace CesarBmx.Notification.Application.Consumers
                 // Log
                 _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", nameof(MessageSent), Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
 
-                // Response
-                await context.RespondAsync(message);
-
                 // Event
                 var messageSent = _mapper.Map<MessageSent>(message);
 
                 // Publish event
                 await context.Publish(messageSent);
+
+                // Response
+                await context.RespondAsync(messageSent);
             }
             catch (Exception ex)
             {
