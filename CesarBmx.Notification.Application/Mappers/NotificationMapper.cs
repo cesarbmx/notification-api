@@ -1,22 +1,21 @@
 using AutoMapper;
-using CesarBmx.Notification.Domain.Models;
 using CesarBmx.Shared.Messaging.Notification.Commands;
 using CesarBmx.Shared.Messaging.Notification.Events;
 
 namespace CesarBmx.Notification.Application.Mappers
 {
-    public class MessageMapper : Profile
+    public class NotificationMapper : Profile
     {
-        public MessageMapper()
+        public NotificationMapper()
         {           
             // Model to Response
-            CreateMap<Message, Responses.Message>();
+            CreateMap<Domain.Models.Notification, Responses.Notification>();
 
             // Model to Event
-            CreateMap<Message, MessageSent>();
+            CreateMap<Domain.Models.Notification, NotificationSent>();
 
             // Command to model
-            CreateMap<SendMessage, Message>();
+            CreateMap<SendNotification, Domain.Models.Notification>();
         }
     }
 }

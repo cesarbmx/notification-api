@@ -16,9 +16,9 @@ namespace CesarBmx.Notification.Api.Controllers
     [SwaggerOrder(orderPrefix: "G")]
     public class NotificationController : Controller
     {
-        private readonly MessageService _messageService;
+        private readonly NotificationService _messageService;
 
-        public NotificationController(MessageService messageService)
+        public NotificationController(NotificationService messageService)
         {
             _messageService = messageService;
         }
@@ -28,7 +28,7 @@ namespace CesarBmx.Notification.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/messages")]
-        [SwaggerResponse(200, Type = typeof(List<Message>))]
+        [SwaggerResponse(200, Type = typeof(List<Application.Responses.Notification>))]
         [SwaggerOperation(Tags = new[] { "Messages" }, OperationId = "Messages_GetMessages")]
         public async Task<IActionResult> GetMessages(string userId)
         {
@@ -44,7 +44,7 @@ namespace CesarBmx.Notification.Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("api/messages/{messageId}", Name = "Messages_GetMessage")]
-        [SwaggerResponse(200, Type = typeof(Message))]
+        [SwaggerResponse(200, Type = typeof(Application.Responses.Notification))]
         [SwaggerResponse(404, Type = typeof(NotFound))]
         [SwaggerOperation(Tags = new[] { "Messages" }, OperationId = "Messages_GetMessage")]
         public async Task<IActionResult> GetMessage(Guid messageId)

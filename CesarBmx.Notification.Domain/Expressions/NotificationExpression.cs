@@ -6,11 +6,11 @@ namespace CesarBmx.Notification.Domain.Expressions
 {
     public static class NotificationExpression
     {
-        public static Expression<Func<Message, bool>> Filter(string userId = null)
+        public static Expression<Func<Models.Notification, bool>> Filter(string userId = null)
         {
             return x => string.IsNullOrEmpty(userId) || x.UserId == userId;
         }
-        public static Expression<Func<Message, bool>> PendingNotification()
+        public static Expression<Func<Models.Notification, bool>> PendingNotification()
         {
             return x => !x.SentAt.HasValue;
         }

@@ -3,7 +3,7 @@ using CesarBmx.Notification.Domain.Types;
 
 namespace CesarBmx.Notification.Application.Responses
 {
-    public class Message
+    public class Notification
     {
         public Guid MessageId { get; set; }
         public string UserId { get; set; }

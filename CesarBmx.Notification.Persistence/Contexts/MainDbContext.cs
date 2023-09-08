@@ -8,7 +8,7 @@ namespace CesarBmx.Notification.Persistence.Contexts
 {
     public class MainDbContext : DbContext
     {
-        public DbSet<Message> Messages { get; set; }
+        public DbSet<Domain.Models.Notification> Notifications { get; set; }
 
         public MainDbContext(DbContextOptions<MainDbContext> options)
            : base(options)
@@ -18,7 +18,7 @@ namespace CesarBmx.Notification.Persistence.Contexts
         [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Message>().Map();
+            modelBuilder.Entity<Domain.Models.Notification>().Map();
 
             base.OnModelCreating(modelBuilder);
 

@@ -14,18 +14,18 @@ using CesarBmx.Shared.Messaging.Ordering.Events;
 
 namespace CesarBmx.Notification.Application.Consumers
 {
-    public class SendMessageConsumer : IConsumer<SendMessage>
+    public class SendNotificationConsumer : IConsumer<SendNotification>
     {
         private readonly MainDbContext _mainDbContext;
         private readonly IMapper _mapper;
-        private readonly ILogger<SendMessageConsumer> _logger;
+        private readonly ILogger<SendNotificationConsumer> _logger;
         private readonly ActivitySource _activitySource;
         private readonly AppSettings _appSettings;
 
-        public SendMessageConsumer(
+        public SendNotificationConsumer(
             MainDbContext mainDbContext,
             IMapper mapper,
-            ILogger<SendMessageConsumer> logger,
+            ILogger<SendNotificationConsumer> logger,
             ActivitySource activitySource,
             AppSettings appSettings)
         {
@@ -36,7 +36,7 @@ namespace CesarBmx.Notification.Application.Consumers
             _appSettings = appSettings;
         }
 
-        public async Task Consume(ConsumeContext<SendMessage> context)
+        public async Task Consume(ConsumeContext<SendNotification> context)
         {
             try
             {
@@ -45,13 +45,13 @@ namespace CesarBmx.Notification.Application.Consumers
                 stopwatch.Start();
 
                 // Start span
-                using var span = _activitySource.StartActivity(nameof(SendMessage));
+                using var span = _activitySource.StartActivity(nameof(SendNotification));
 
                 // Command
                 var sendMessage = context.Message;
 
                 // Create message
-                var message = _mapper.Map<Message>(sendMessage);
+                var message = _mapper.Map<Domain.Models.Notification>(sendMessage);
 
                 // Connect
                 var apiToken = _appSettings.TelegramApiToken;
@@ -64,7 +64,7 @@ namespace CesarBmx.Notification.Application.Consumers
                 message.MarkAsSent();
 
                 // Update notification
-                _mainDbContext.Messages.Update(message);
+                _mainDbContext.Notifications.Update(message);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
@@ -73,10 +73,10 @@ namespace CesarBmx.Notification.Application.Consumers
                 stopwatch.Stop();
 
                 // Log
-                _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", nameof(MessageSent), Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
+                _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", nameof(NotificationSent), Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
 
                 // Event
-                var messageSent = _mapper.Map<MessageSent>(message);
+                var messageSent = _mapper.Map<NotificationSent>(message);
 
                 // Publish event
                 await context.Publish(messageSent);

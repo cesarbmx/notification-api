@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CesarBmx.Notification.Persistence.Mappings
 {
-    public static class MessageMapping
+    public static class NotificationMapping
     {
-        public static void Map(this EntityTypeBuilder<Message> entityBuilder)
+        public static void Map(this EntityTypeBuilder<Domain.Models.Notification> entityBuilder)
         {
             // Key
-            entityBuilder.HasKey(t => t.MessageId);
+            entityBuilder.HasKey(t => t.NotificationId);
 
             // Properties
-            entityBuilder.Property(t => t.MessageId)
+            entityBuilder.Property(t => t.NotificationId)
                 .HasColumnType("uniqueidentifier")
                 .IsRequired();
 

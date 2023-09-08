@@ -9,7 +9,7 @@ namespace CesarBmx.Notification.Api.Configuration
         public static IServiceCollection ConfigureMasstransit(this IServiceCollection services, IConfiguration configuration)
         {
             // Shared
-            services.ConfigureSharedMasstransit<MainDbContext>(configuration, typeof(SendMessageConsumer));
+            services.ConfigureSharedMasstransit<MainDbContext>(configuration, typeof(SendNotificationConsumer));
 
             // Return
             return services;

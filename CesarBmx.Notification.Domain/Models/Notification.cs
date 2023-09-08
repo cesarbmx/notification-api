@@ -6,19 +6,22 @@ using CesarBmx.Notification.Domain.Types;
 
 namespace CesarBmx.Notification.Domain.Models
 {
-    public class Message 
+    public class Notification 
     {
-        public Guid MessageId { get; private set; }
+        public Guid NotificationId { get; private set; }
+        public NotificationType NotificationType { get; private set; }
         public string UserId { get; set; } = null!;
         public string PhoneNumber { get; private set; }
         public string Text { get; private set; }     
         public DateTime? SentAt { get; private set; }
         public NotificationStatus NotificationStatus => NotificationBuilder.BuildNotificationStatus(SentAt);
 
-        public Message() { }
-        public Message(Guid guid, string userId, string phoneNumber, string text)
+        public Notification() { }
+        public Notification(Guid guid, NotificationType notificationType, string userId, string phoneNumber, string text)
         {
-            MessageId = guid;
+            NotificationId = guid;
+            NotificationType = notificationType;
+            UserId = userId;
             PhoneNumber = phoneNumber;
             Text = text;
             SentAt = null;

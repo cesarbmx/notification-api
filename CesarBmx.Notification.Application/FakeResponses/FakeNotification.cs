@@ -5,11 +5,11 @@ using CesarBmx.Notification.Application.Responses;
 
 namespace CesarBmx.Notification.Application.FakeResponses
 {
-    public static class FakeMessage
+    public static class FakeNotification
     {
-        public static Message GetFake_Master()
+        public static Responses.Notification GetFake_Master()
         {
-            return new Message
+            return new Responses.Notification
             {
                 MessageId = Guid.NewGuid(),
                 UserId = "master",
@@ -19,9 +19,9 @@ namespace CesarBmx.Notification.Application.FakeResponses
                 SentTime = null
             };
         }
-        public static Message GetFake_CesarBmx()
+        public static Responses.Notification GetFake_CesarBmx()
         {
-            return new Message
+            return new Responses.Notification
             {
                 MessageId = Guid.NewGuid(),
                 UserId = "cesarbmx",
@@ -31,9 +31,9 @@ namespace CesarBmx.Notification.Application.FakeResponses
                 SentTime = null
             };
         }
-        public static List<Message> GetFake_List()
+        public static List<Responses.Notification> GetFake_List()
         {
-            return new List<Message>
+            return new List<Responses.Notification>
             {
                 GetFake_Master(),
                 GetFake_CesarBmx()

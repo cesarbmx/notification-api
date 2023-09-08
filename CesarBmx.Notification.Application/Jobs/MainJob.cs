@@ -10,12 +10,12 @@ namespace CesarBmx.Notification.Application.Jobs
 {
     public class MainJob
     {
-        private readonly MessageService _messageService;
+        private readonly NotificationService _messageService;
         private readonly ILogger<MainJob> _logger;
         private readonly ActivitySource _activitySource;
 
         public MainJob(
-            MessageService messageService,
+            NotificationService messageService,
             ILogger<MainJob> logger,
             ActivitySource activitySource)
         {
@@ -37,7 +37,7 @@ namespace CesarBmx.Notification.Application.Jobs
                 using var span = _activitySource.StartActivity(nameof(MainJob));
 
                 // Main job
-                //await _messageService.SendTelegramMessages();
+                await _messageService.SendPendingNotifications();
 
                 // Stop watch
                 stopwatch.Stop();
