@@ -4,8 +4,7 @@ namespace CesarBmx.Notification.Domain.Types
 {
     public enum NotificationType
     {
-        TELEGRAM,
-        WHATSAPP,
+        PHONE_MESSAGE,
         EMAIL
     }
 }

@@ -9,6 +9,8 @@ namespace CesarBmx.Notification.Persistence.Contexts
     public class MainDbContext : DbContext
     {
         public DbSet<Domain.Models.Notification> Notifications { get; set; }
+        public DbSet<PhoneMessage> PhoneMessages { get; set; }
+        public DbSet<Email> Emails { get; set; }
 
         public MainDbContext(DbContextOptions<MainDbContext> options)
            : base(options)
@@ -19,6 +21,8 @@ namespace CesarBmx.Notification.Persistence.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Domain.Models.Notification>().Map();
+            modelBuilder.Entity<PhoneMessage>().Map();
+            modelBuilder.Entity<Email>().Map();
 
             base.OnModelCreating(modelBuilder);
 

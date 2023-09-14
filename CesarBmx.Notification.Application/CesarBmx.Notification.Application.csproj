@@ -55,8 +55,6 @@
 
   <ItemGroup>
     <Folder Include="Conflicts\" />
-    <Folder Include="FakeRequests\" />
-    <Folder Include="Requests\" />
     <Folder Include="Validators\" />
   </ItemGroup>
 

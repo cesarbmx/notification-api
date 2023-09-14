@@ -48,23 +48,26 @@ namespace CesarBmx.Notification.Application.Consumers
                 using var span = _activitySource.StartActivity(nameof(SendNotification));
 
                 // Command
-                var sendMessage = context.Message;
+                var sendNotification = context.Message;
 
                 // Create message
-                var message = _mapper.Map<Domain.Models.Notification>(sendMessage);
+                var phoneMessage = _mapper.Map<PhoneMessage>(sendNotification);
+
+                // Set destination app
+                phoneMessage.SetDestinationApp(Domain.Types.PhoneApp.TELEGRAM, "+34666333222");
 
                 // Connect
                 var apiToken = _appSettings.TelegramApiToken;
                 var bot = new TelegramBotClient(apiToken);
 
                 // Send telegram
-                await bot.SendTextMessageAsync("@crypto_watcher_official", message.Text);
+                await bot.SendTextMessageAsync("@crypto_watcher_official", phoneMessage.Text);
 
                 // Mark notification as sent
-                message.MarkAsSent();
+                phoneMessage.MarkAsSent();
 
                 // Update notification
-                _mainDbContext.Notifications.Update(message);
+                _mainDbContext.PhoneMessages.Update(phoneMessage);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
@@ -76,7 +79,7 @@ namespace CesarBmx.Notification.Application.Consumers
                 _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", nameof(NotificationSent), Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
 
                 // Event
-                var messageSent = _mapper.Map<NotificationSent>(message);
+                var messageSent = _mapper.Map<NotificationSent>(phoneMessage);
 
                 // Publish event
                 await context.Publish(messageSent);

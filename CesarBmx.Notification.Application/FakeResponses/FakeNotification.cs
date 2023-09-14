@@ -13,9 +13,9 @@ namespace CesarBmx.Notification.Application.FakeResponses
             {
                 MessageId = Guid.NewGuid(),
                 UserId = "master",
-                Text = "Test message",
                 PhoneNumber = "+34666555555",
-                Time = DateTime.UtcNow.StripSeconds(),
+                Text = "Test message",
+                ScheduledFor = null,
                 SentTime = null
             };
         }
@@ -25,9 +25,9 @@ namespace CesarBmx.Notification.Application.FakeResponses
             {
                 MessageId = Guid.NewGuid(),
                 UserId = "cesarbmx",
-                Text = "Test message",
                 PhoneNumber = "+34666666666",
-                Time = DateTime.UtcNow.StripSeconds(),
+                Text = "Test message",
+                ScheduledFor = null,
                 SentTime = null
             };
         }

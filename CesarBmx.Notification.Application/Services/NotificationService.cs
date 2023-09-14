@@ -76,6 +76,23 @@ namespace CesarBmx.Notification.Application.Services
             // Return
             return response;
         }
+        public async Task<Responses.Notification> CreateNotification(Guid messageId)
+        {
+            // Start span
+            using var span = _activitySource.StartActivity(nameof(GetNotification));
+
+            // Get notification
+            var notification = await _mainDbContext.Notifications.FindAsync(messageId);
+
+            // Throw NotFound if the currency does not exist
+            if (notification == null) throw new NotFoundException(NotificationMessage.NotificationNotFound);
+
+            // Response
+            var response = _mapper.Map<Responses.Notification>(notification);
+
+            // Return
+            return response;
+        }
 
         public async Task SendPendingNotifications()
         {
@@ -93,25 +110,37 @@ namespace CesarBmx.Notification.Application.Services
             var apiToken = _appSettings.TelegramApiToken;
             var bot = new TelegramBotClient(apiToken);
 
-            // For each notification
+            // For each pending notification
             var count = 0;
             foreach (var pendingNotification in pendingNotifications)
             {
                 switch (pendingNotification.NotificationType)
                 {
-                    case NotificationType.TELEGRAM:
-                        await SendTelegramNotification(pendingNotification);
-                        count++;
-                        break;
-                    case NotificationType.WHATSAPP:
-                        await SendWhatsappNotification(pendingNotification);
+                    case NotificationType.PHONE_MESSAGE:
+                        var phoneMessage = pendingNotification as PhoneMessage;
+                        await SendTelegramNotification(phoneMessage);
+                        switch (phoneMessage.DestinationApp)
+                        {
+                            case PhoneApp.TELEGRAM:
+                                await SendTelegramNotification(phoneMessage);
+                                break;
+                            case PhoneApp.WHATSAPP:
+                                await SendWhatsappNotification(phoneMessage);
+                                break;
+                            default:
+                                throw new NotImplementedException(nameof(phoneMessage.DestinationApp));
+                        }
                         count++;
                         break;
                     case NotificationType.EMAIL:
                         throw new NotImplementedException(nameof(pendingNotification.NotificationType));
+                        count++;
+                        break;
                     default:
                         throw new NotImplementedException(nameof(pendingNotification.NotificationType));
                 }
+
+                
             }
 
             // Stop watch
@@ -120,7 +149,7 @@ namespace CesarBmx.Notification.Application.Services
             // Log
             _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "PendingNotificationsSent", Guid.NewGuid(), count, stopwatch.Elapsed.TotalSeconds);
         }
-        public async Task SendTelegramNotification(Domain.Models.Notification notification)
+        public async Task SendTelegramNotification(PhoneMessage phoneMessage)
         {
             // Start watch
             var stopwatch = new Stopwatch();
@@ -137,13 +166,13 @@ namespace CesarBmx.Notification.Application.Services
             {
 
                 // Send telegram
-                await bot.SendTextMessageAsync("@crypto_watcher_official", notification.Text);
+                await bot.SendTextMessageAsync("@crypto_watcher_official", phoneMessage.Text);
 
                 // Mark notification as sent
-                notification.MarkAsSent();
+                phoneMessage.MarkAsSent();
 
                 // Update notification
-                _mainDbContext.Notifications.Update(notification);
+                _mainDbContext.Notifications.Update(phoneMessage);
 
                 // Save
                 await _mainDbContext.SaveChangesAsync();
@@ -160,7 +189,7 @@ namespace CesarBmx.Notification.Application.Services
             // Log
             _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", "TelegramNotificationsSent", Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
         }
-        public async Task SendWhatsappNotification(Domain.Models.Notification notification)
+        public async Task SendWhatsappNotification(PhoneMessage phoneMessage)
         {
             // Start watch
             var stopwatch = new Stopwatch();
@@ -180,10 +209,10 @@ namespace CesarBmx.Notification.Application.Services
                 // Send whatsapp
                 MessageResource.Create(
                     from: new PhoneNumber("whatsapp:" + "+34666666666"),
-                    to: new PhoneNumber("whatsapp:" + notification.PhoneNumber),
-                    body: notification.Text
+                    to: new PhoneNumber("whatsapp:" + phoneMessage.PhoneNumber),
+                    body: phoneMessage.Text
                 );
-                notification.MarkAsSent();
+                phoneMessage.MarkAsSent();
             }
             catch (Exception ex)
             {
