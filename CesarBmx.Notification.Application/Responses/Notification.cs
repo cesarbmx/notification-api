@@ -5,7 +5,7 @@ namespace CesarBmx.Notification.Application.Responses
 {
     public class Notification
     {
-        public Guid MessageId { get; set; }
+        public Guid NotificationId { get; set; }
         public string UserId { get; set; }
         public NotificationStatus NotificationStatus { get; set; }
         public string PhoneNumber { get; set; }

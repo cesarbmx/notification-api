@@ -40,10 +40,4 @@
 
 
 
-	<ItemGroup>
-	  <Folder Include="RequestExamples\" />
-	</ItemGroup>
-
-
-
 </Project>

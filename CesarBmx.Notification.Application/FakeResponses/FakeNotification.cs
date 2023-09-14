@@ -11,7 +11,7 @@ namespace CesarBmx.Notification.Application.FakeResponses
         {
             return new Responses.Notification
             {
-                MessageId = Guid.NewGuid(),
+                NotificationId = Guid.NewGuid(),
                 UserId = "master",
                 PhoneNumber = "+34666555555",
                 Text = "Test message",
@@ -23,7 +23,7 @@ namespace CesarBmx.Notification.Application.FakeResponses
         {
             return new Responses.Notification
             {
-                MessageId = Guid.NewGuid(),
+                NotificationId = Guid.NewGuid(),
                 UserId = "cesarbmx",
                 PhoneNumber = "+34666666666",
                 Text = "Test message",

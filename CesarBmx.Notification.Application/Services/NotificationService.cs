@@ -17,8 +17,8 @@ using Twilio.Types;
 using Twilio.Rest.Api.V2010.Account;
 using CesarBmx.Shared.Messaging.Notification.Commands;
 using CesarBmx.Notification.Domain.Models;
-using CesarBmx.Shared.Messaging.Notification.Events;
 using CesarBmx.Notification.Domain.Types;
+using CesarBmx.Notification.Application.Requests;
 
 namespace CesarBmx.Notification.Application.Services
 {
@@ -76,19 +76,27 @@ namespace CesarBmx.Notification.Application.Services
             // Return
             return response;
         }
-        public async Task<Responses.Notification> CreateNotification(Guid messageId)
+        public async Task<Responses.Notification> CreateNotification(CreateNotification request)
         {
             // Start span
             using var span = _activitySource.StartActivity(nameof(GetNotification));
 
-            // Get notification
-            var notification = await _mainDbContext.Notifications.FindAsync(messageId);
+            // The destinations should come from user settings
 
-            // Throw NotFound if the currency does not exist
-            if (notification == null) throw new NotFoundException(NotificationMessage.NotificationNotFound);
+            // Create notification
+            var phoneMessage = new PhoneMessage(
+                Guid.NewGuid(),
+                request.UserId,
+                NotificationType.PHONE_MESSAGE,
+                "+34666333222",
+                PhoneApp.TELEGRAM,
+                request.Text,
+                request.ScheduledFor
+                );
+
 
             // Response
-            var response = _mapper.Map<Responses.Notification>(notification);
+            var response = _mapper.Map<Responses.Notification>(phoneMessage);
 
             // Return
             return response;
@@ -140,7 +148,7 @@ namespace CesarBmx.Notification.Application.Services
                         throw new NotImplementedException(nameof(pendingNotification.NotificationType));
                 }
 
-                
+
             }
 
             // Stop watch

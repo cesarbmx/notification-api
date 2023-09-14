@@ -7,6 +7,7 @@ using CesarBmx.Notification.Application.Services;
 using CesarBmx.Shared.Api.ActionFilters;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using CesarBmx.Notification.Application.Requests;
 
 namespace CesarBmx.Notification.Api.Controllers
 {
@@ -54,6 +55,25 @@ namespace CesarBmx.Notification.Api.Controllers
 
             // Return
             return Ok(response);
+        }
+
+        /// <summary>
+        /// Create notification
+        /// </summary>
+        [HttpPost]
+        [Route("api/notifications")]
+        [SwaggerResponse(201, Type = typeof(Application.Responses.Notification))]
+        [SwaggerResponse(400, Type = typeof(BadRequest))]
+        //[SwaggerResponse(409, Type = typeof(Conflict<CreateNotificationConflict>))]
+        [SwaggerResponse(422, Type = typeof(ValidationFailed))]
+        [SwaggerOperation(Tags = new[] { "Notifications" }, OperationId = "Notifications_CreateNotification")]
+        public async Task<IActionResult> CreateNotification([FromBody] CreateNotification request)
+        {
+            // Reponse
+            var response = await _notificationService.CreateNotification(request);
+
+            // Return
+            return CreatedAtRoute("Notifications_GetNotification", new { response.NotificationId }, response);
         }
     }
 }

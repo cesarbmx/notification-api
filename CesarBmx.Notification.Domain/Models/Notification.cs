@@ -30,7 +30,6 @@ namespace CesarBmx.Notification.Domain.Models
         {
             NotificationStatus = NotificationStatus.SENT;
             SentAt = DateTime.UtcNow.StripSeconds();
-
         }
     }
 }
