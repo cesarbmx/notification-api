@@ -44,10 +44,10 @@ namespace CesarBmx.Notification.Application.Services
             _activitySource = activitySource;
         }
 
-        public async Task<List<Responses.Notification>> GetMessages(string userId)
+        public async Task<List<Responses.Notification>> GetNotifications(string userId)
         {
             // Start span
-            using var span = _activitySource.StartActivity(nameof(GetMessages));
+            using var span = _activitySource.StartActivity(nameof(GetNotifications));
 
             // Get user
             var notifications = await _mainDbContext.Notifications
@@ -59,10 +59,10 @@ namespace CesarBmx.Notification.Application.Services
             // Return
             return response;
         }
-        public async Task<Responses.Notification> GetMessage(Guid messageId)
+        public async Task<Responses.Notification> GetNotification(Guid messageId)
         {
             // Start span
-            using var span = _activitySource.StartActivity(nameof(GetMessage));
+            using var span = _activitySource.StartActivity(nameof(GetNotification));
 
             // Get notification
             var notification = await _mainDbContext.Notifications.FindAsync(messageId);
