@@ -13,7 +13,7 @@ namespace CesarBmx.Notification.Domain.Models
         public bool Whatsapp { get; private set; }
         public bool Email { get; private set; }
         public DeliveryType DeliveryType { get; private set; }
-        public MessageStatus NotificationStatus { get; private set; }
+        public MessageStatus MessageStatus { get; private set; }
         public string PhoneNumber { get; private set; }
         public string EmailAddress { get; private set; }
         public string Text { get; private set; }
@@ -50,7 +50,7 @@ namespace CesarBmx.Notification.Domain.Models
 
         public void MarkAsSent()
         {
-            NotificationStatus = MessageStatus.SENT;
+            MessageStatus = MessageStatus.SENT;
             SentAt = DateTime.UtcNow.StripSeconds();
         }
 

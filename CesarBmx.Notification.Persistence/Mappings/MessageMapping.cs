@@ -38,6 +38,12 @@ namespace CesarBmx.Notification.Persistence.Mappings
                 .IsRequired();
 
             entityBuilder.Property(t => t.DeliveryType)
+               .HasColumnType("nvarchar(50)")
+               .HasMaxLength(50)
+               .HasStringToEnumConversion()
+               .IsRequired();
+
+            entityBuilder.Property(t => t.MessageStatus)
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50)
                 .HasStringToEnumConversion()
