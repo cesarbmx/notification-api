@@ -2,9 +2,9 @@
 
 namespace CesarBmx.Notification.Domain.Types
 {
-    public enum PhoneApp
+    public enum MessageStatus
     {
-        WHATSAPP,
-        TELEGRAM
+        PENDING,
+        SENT
     }
 }

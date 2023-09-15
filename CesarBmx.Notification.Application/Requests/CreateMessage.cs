@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CesarBmx.Notification.Application.Requests
 {
-    public class CreateNotification
+    public class CreateMessage
     {
         [Required] public string UserId { get; set; } = null!;
         [Required] public string Text { get; set; } = null;

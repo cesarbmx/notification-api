@@ -4,11 +4,11 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace CesarBmx.CryptoWatcher.Api.RequestExamples
 {
-    public class CreateNotificationExample : IExamplesProvider<CreateNotification>
+    public class CreateMessageExample : IExamplesProvider<CreateMessage>
     {
-        public CreateNotification GetExamples()
+        public CreateMessage GetExamples()
         {
-            return FakeCreateNotification.GetFake_1();
+            return FakeCreateMessage.GetFake_1();
         }
     }
 }

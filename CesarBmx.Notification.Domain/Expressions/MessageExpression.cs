@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Linq.Expressions;
-using CesarBmx.Notification.Domain.Models;
 
 namespace CesarBmx.Notification.Domain.Expressions
 {
-    public static class NotificationExpression
+    public static class MessageExpression
     {
-        public static Expression<Func<Models.Notification, bool>> Filter(string userId = null)
+        public static Expression<Func<Models.Message, bool>> Filter(string userId = null)
         {
             return x => string.IsNullOrEmpty(userId) || x.UserId == userId;
         }
-        public static Expression<Func<Models.Notification, bool>> PendingNotification()
+        public static Expression<Func<Models.Message, bool>> PendingMessage()
         {
             return x => !x.SentAt.HasValue;
         }

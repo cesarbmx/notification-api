@@ -4,18 +4,18 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace CesarBmx.Notification.Api.ResponseExamples
 {
-    public class MessageResponseExample : IExamplesProvider<Application.Responses.Notification>
+    public class MessageResponseExample : IExamplesProvider<Application.Responses.Message>
     {
-        public Application.Responses.Notification GetExamples()
+        public Application.Responses.Message GetExamples()
         {
-            return FakeNotification.GetFake_Master();
+            return FakeMessage.GetFake_Master();
         }
     }
-    public class NotificationListResponseExample : IExamplesProvider<List<Application.Responses.Notification>>
+    public class NotificationListResponseExample : IExamplesProvider<List<Application.Responses.Message>>
     {
-        public List<Application.Responses.Notification> GetExamples()
+        public List<Application.Responses.Message> GetExamples()
         {
-            return FakeNotification.GetFake_List();
+            return FakeMessage.GetFake_List();
         }
     }
 }

@@ -30,7 +30,7 @@ namespace CesarBmx.Notification.Api.Configuration
             }
 
             // Services
-            services.AddScoped<NotificationService>();
+            services.AddScoped<MessageService>();
 
             // Jobs
             services.AddScoped<MainJob>();

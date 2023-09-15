@@ -2,9 +2,9 @@
 
 namespace CesarBmx.Notification.Domain.Types
 {
-    public enum NotificationStatus
+    public enum DeliveryType
     {
-        PENDING,
-        SENT
+        DIRECT,
+        DAILY
     }
 }

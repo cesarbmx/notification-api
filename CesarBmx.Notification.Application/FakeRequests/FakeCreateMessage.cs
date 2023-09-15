@@ -3,11 +3,11 @@
 
 namespace CesarBmx.Notification.Application.FakeRequests
 {
-    public static class FakeCreateNotification
+    public static class FakeCreateMessage
     {
-        public static CreateNotification GetFake_1()
+        public static CreateMessage GetFake_1()
         {
-            return new CreateNotification
+            return new CreateMessage
             {
                 UserId = "cesarbmx",
                 Text = "Test message",
