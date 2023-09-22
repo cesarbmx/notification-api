@@ -130,7 +130,6 @@ namespace CesarBmx.Notification.Application.Services
             var count = 0;
             foreach (var pendingMessage in pendingMessages)
             {
-
                 // Telegram
                 if (pendingMessage.Telegram)
                 {
