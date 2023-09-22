@@ -150,9 +150,7 @@ namespace CesarBmx.Notification.Application.Services
                 }
 
                 // Count
-                count++;               
-
-
+                count++;             
             }
 
             // Stop watch
