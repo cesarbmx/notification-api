@@ -81,11 +81,17 @@ namespace CesarBmx.Notification.Application.Consumers
                 // Event
                 var messageSent = _mapper.Map<MessageSent>(message);
 
-                // Publish event
-                await context.Publish(messageSent);
-
-                // Response
-                await context.RespondAsync(messageSent);
+                // Either respond or publish
+                if (context.IsResponseAccepted<MessageSent>())
+                {
+                    // Response
+                    await context.RespondAsync(messageSent);
+                }
+                else
+                {
+                    // Publish
+                    await context.Publish(messageSent);
+                }
             }
             catch (Exception ex)
             {
