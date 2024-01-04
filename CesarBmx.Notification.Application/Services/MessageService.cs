@@ -79,7 +79,7 @@ namespace CesarBmx.Notification.Application.Services
         public async Task<Responses.Message> CreateMessage(CreateMessage request)
         {
             // Start span
-            using var span = _activitySource.StartActivity(nameof(GetMessage));
+            using var span = _activitySource.StartActivity(nameof(CreateMessage));
 
             // The destinations should come from user settings
 
@@ -156,7 +156,7 @@ namespace CesarBmx.Notification.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", "MessageSent", Guid.NewGuid(), count, stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@Count}, {@ExecutionTime}", nameof(CreateMessage), Guid.NewGuid(), count, stopwatch.Elapsed.TotalSeconds);
         }
         public async Task SendTelegramMessage(Message message)
         {
@@ -195,7 +195,7 @@ namespace CesarBmx.Notification.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", "TelegramMessageSent", Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", nameof(SendTelegramMessage), Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
         }
         public async Task SendWhatsappMessage(Message message)
         {
@@ -204,7 +204,7 @@ namespace CesarBmx.Notification.Application.Services
             stopwatch.Start();
 
             // Start span
-            using var span = _activitySource.StartActivity(nameof(SendMessage));
+            using var span = _activitySource.StartActivity(nameof(SendWhatsappMessage));
 
             // Connect
             TwilioClient.Init(
@@ -237,7 +237,7 @@ namespace CesarBmx.Notification.Application.Services
             stopwatch.Stop();
 
             // Log
-            _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", "WhatsappMessageSent", Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
+            _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", nameof(SendWhatsappMessage), Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
         }
     }
 }

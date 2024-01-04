@@ -45,7 +45,7 @@ namespace CesarBmx.Notification.Application.Consumers
                 stopwatch.Start();
 
                 // Start span
-                using var span = _activitySource.StartActivity(nameof(SendMessage));
+                using var span = _activitySource.StartActivity(nameof(SendMessageConsumer));
 
                 // Command
                 var sendMessage = context.Message;
@@ -69,14 +69,8 @@ namespace CesarBmx.Notification.Application.Consumers
                 // Update messages
                 _mainDbContext.Messages.Update(message);
 
-                // Save
-                await _mainDbContext.SaveChangesAsync();
-
                 // Stop watch
-                stopwatch.Stop();
-
-                // Log
-                _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", nameof(MessageSent), Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
+                stopwatch.Stop();               
 
                 // Event
                 var messageSent = _mapper.Map<MessageSent>(message);
@@ -92,6 +86,12 @@ namespace CesarBmx.Notification.Application.Consumers
                     // Publish
                     await context.Publish(messageSent);
                 }
+
+                // Save
+                await _mainDbContext.SaveChangesAsync();
+
+                // Log
+                _logger.LogInformation("{@Event}, {@Id}, {@ExecutionTime}", nameof(SendMessageConsumer), Guid.NewGuid(), stopwatch.Elapsed.TotalSeconds);
             }
             catch (Exception ex)
             {
