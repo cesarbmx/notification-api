@@ -81,7 +81,7 @@ namespace CesarBmx.Notification.Api
             app.ConfigureErrorHandling();
 
             // Serilog
-            app.ConfigureSerilog(loggerFactory, Configuration);
+            loggerFactory.ConfigureSerilog(Configuration);
 
             // Swagger
             app.ConfigureSwagger(Configuration);
