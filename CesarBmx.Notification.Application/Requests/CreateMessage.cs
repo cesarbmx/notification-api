@@ -8,6 +8,6 @@ namespace CesarBmx.Notification.Application.Requests
     {
         [Required] public string UserId { get; set; } = null!;
         [Required] public string Text { get; set; } = null;
-        [Required] public DateTime? ScheduledFor { get; set; } = null;
+        public DateTime? ScheduledFor { get; set; } = null;
     }
 }
