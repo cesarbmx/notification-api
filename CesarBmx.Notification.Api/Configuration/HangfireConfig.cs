@@ -46,6 +46,7 @@ namespace CesarBmx.Notification.Api.Configuration
 
             // Background jobs
             var jobsIntervalInMinutes = appSettings.JobsIntervalInMinutes;
+            RecurringJob.AddOrUpdate<MainJob>("Main", x => x.Run(), $"*/{jobsIntervalInMinutes} * * * *");
 
             return app;
         }
