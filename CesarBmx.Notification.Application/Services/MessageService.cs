@@ -174,7 +174,7 @@ namespace CesarBmx.Notification.Application.Services
             try
             {
                 // Send telegram
-                await bot.SendTextMessageAsync("@crypto_watcher_official", message.Text);
+                await bot.SendMessage("@crypto_watcher_official", message.Text);
 
                 // Mark message as sent
                 message.MarkAsSent();
